@@ -76,7 +76,13 @@ class RecTeqConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 errors["base"] = "cannot_connect"
             else:
                 for d in devices:
-                    _LOGGER.warning("RecTeq cloud device: name=%s product_id=%s dev_id=%s", d.name, d.product_id, d.dev_id) supported = [d for d in devices if d.product_id in PRODUCT_DP_MAPS]
+                    _LOGGER.warning(
+                         "RecTeq cloud device: name=%s product_id=%s dev_id=%s", 
+                         d.name,
+                         d.product_id,
+                         d.dev_id,
+                     ) 
+                supported = [d for d in devices if d.product_id in PRODUCT_DP_MAPS]
                 if not supported:
                     return self.async_abort(reason="no_supported_devices")
                 self._supported = supported
