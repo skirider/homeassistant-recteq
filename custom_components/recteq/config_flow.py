@@ -27,6 +27,7 @@ from .const import (
     CONF_EMAIL,
     CONF_HOST,
     CONF_LOCAL_KEY,
+    CONF_PRODUCT_ID,
     DOMAIN,
     PRODUCT_DP_MAPS,
 )
@@ -157,5 +158,6 @@ class RecTeqConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 CONF_LOCAL_KEY: d.local_key,
                 CONF_HOST: ip,
                 CONF_DEVICE_NAME: d.name or "RecTeq",
+                CONF_PRODUCT_ID: d.product_id,
             },
         )

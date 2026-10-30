@@ -8,7 +8,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import DOMAIN, PRODUCT_DP_MAPS
+from .const import DOMAIN, dp_map_for
 from .coordinator import RecTeqCoordinator
 from .entity import RecTeqEntity
 
@@ -17,9 +17,7 @@ async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, add_entities: AddEntitiesCallback
 ) -> None:
     coord: RecTeqCoordinator = hass.data[DOMAIN][entry.entry_id]
-    # We assume DualFire DP map for now — multi-model dispatch goes here when
-    # we add other smokers (key on cloud-reported productId).
-    dps = PRODUCT_DP_MAPS["q5utybemjsoh72nx"]
+    dps = dp_map_for(entry)
     add_entities(
         RecTeqSwitch(coord, entry, dp, slug, friendly)
         for dp, plat, slug, friendly, _extras in dps

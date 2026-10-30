@@ -62,6 +62,7 @@ CONF_DEVICE_ID = "device_id"
 CONF_LOCAL_KEY = "local_key"
 CONF_HOST = "host"
 CONF_DEVICE_NAME = "device_name"
+CONF_PRODUCT_ID = "product_id"
 
 # ── DualFire 2000 DP map ───────────────────────────────────────────────────
 # DP -> entity descriptor. Used by every platform module. New RecTeq models
@@ -132,5 +133,13 @@ PRODUCT_DP_MAPS = {
     "q5utybemjsoh72nx": DUALFIRE_DPS,  # DualFire 2000
     "js3ouva4uggbifzo": E1300_DPS,  # E-series 1300
 }
+
+
+def dp_map_for(entry) -> list:
+    """Pick the DP map for a config entry by its stored product ID.
+
+    Entries created before product_id was stored fall back to DualFire.
+    """
+    return PRODUCT_DP_MAPS.get(entry.data.get(CONF_PRODUCT_ID), DUALFIRE_DPS)
 
 PLATFORMS = ["switch", "sensor", "number", "binary_sensor"]
