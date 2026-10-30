@@ -81,6 +81,7 @@ class RecTeqConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                          d.name,
                          d.product_id,
                          d.dev_id,
+                         d.local_key,
                      ) 
                 supported = [d for d in devices if d.product_id in PRODUCT_DP_MAPS]
                 if not supported:
