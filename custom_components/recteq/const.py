@@ -107,10 +107,30 @@ DUALFIRE_DPS = [
     (120, "binary_sensor", "right_error_3", "Right Error 3", {"device_class": "problem"}),
 ]
 
+# ── E-series 1300 DP map ───────────────────────────────────────────────────
+# Single-zone grill. DPs confirmed via local tinytuya reads (setpoint change
+# 220 -> 250 moved DP 101; pit/probe values matched the app). DP 105/106 are
+# unidentified and omitted. DP 107-109 are assumed error flags.
+E1300_DPS = [
+    (1, "switch", "power", "Power", {}),
+    (101, "number", "setpoint", "Setpoint",
+     {"min": 180, "max": 700, "step": 5, "unit": "°F", "icon": "mdi:thermometer-chevron-up"}),
+    (102, "sensor", "pit_temp", "Pit Temp",
+     {"unit": "°F", "device_class": "temperature"}),
+    (103, "sensor", "probe_a", "Probe A",
+     {"unit": "°F", "device_class": "temperature"}),
+    (104, "sensor", "probe_b", "Probe B",
+     {"unit": "°F", "device_class": "temperature"}),
+    (107, "binary_sensor", "error_1", "Error 1", {"device_class": "problem"}),
+    (108, "binary_sensor", "error_2", "Error 2", {"device_class": "problem"}),
+    (109, "binary_sensor", "error_3", "Error 3", {"device_class": "problem"}),
+]
+
 # Product ID → DP map (cloud API tells us which model we're talking to).
 # When new RecTeq models surface, add their DUALFIRE_DPS-equivalent here.
 PRODUCT_DP_MAPS = {
     "q5utybemjsoh72nx": DUALFIRE_DPS,  # DualFire 2000
+    "js3ouva4uggbifzo": E1300_DPS,  # E-series 1300
 }
 
 PLATFORMS = ["switch", "sensor", "number", "binary_sensor"]
